@@ -25,9 +25,11 @@ class ViewController: UIViewController {
     
     var randomNumA : Int = 0
     var randomNumB : Int = 0
+    var randomNumC : Int = 0
     
     var firstNum : Int = 0
     var secondNum : Int = 0
+    var thirdNum : Int = 0
     var questionTxt : String = ""
     var answerCorrect : Int = 0
     var answerUser : Int = 0
@@ -52,33 +54,30 @@ class ViewController: UIViewController {
     
     func askQuestion(){
         //3 digit questions starting at 100
-        randomNumA = Int.random(in: 10 ..< 1001)
-        randomNumB = Int.random(in: 10 ..< 1001)
+        randomNumA = Int.random(in: 100 ..< 1001)
+        randomNumB = Int.random(in: 100 ..< 1001)
+        randomNumC = Int.random(in: 100 ..< 1001)
         
-        if randomNumA > randomNumB {
-            firstNum = randomNumA
-            secondNum = randomNumB
-        }
-        else{
-            firstNum = randomNumB
-            secondNum = randomNumA
-        }
-    
-    questionLabel.text = "\(firstNum) - \(secondNum)"
-    readMe(myText: "What is \(firstNum) minus \(secondNum)?")
+        questionLabel.text = "\(randomNumA) + \(randomNumB) + \(randomNumC)"
+        readMe(myText: "What is \(randomNumA) plus \(randomNumB) plus \(randomNumC)?")
     }
     
     func checkAnswer(){
         answerUser = (answerTxt.text! as NSString).integerValue
-        answerCorrect = firstNum - secondNum
+        answerCorrect = randomNumA + randomNumB + randomNumC
         
         if answerCorrect == answerUser {
             correctAnswers += 1
             numberAttempts += 1
             updateProgress()
             randomPositiveFeedback()
-            askQuestion()
-            answerTxt.text = ""
+            let when = DispatchTime.now() + 2
+            DispatchQueue.main.asyncAfter(deadline: when){
+                //next problem
+                self.askQuestion()
+                self.answerTxt.text = ""
+                
+            }
         }
         else{
             randomTryAgain()
