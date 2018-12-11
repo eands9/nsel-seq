@@ -13,7 +13,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="NS_Elem_1" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="nsel_seq_p_1" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -57,7 +57,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="chkBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Hei-Fg-xf8"/>
+                                                    <action selector="checkAnswerByUser:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xQG-Bi-dDf"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00  /  00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="th9-e1-kU2">
@@ -128,10 +128,8 @@
                     </view>
                     <connections>
                         <outlet property="answerTxt" destination="KYe-H6-QLi" id="Dzp-aA-aLM"/>
-                        <outlet property="checkBtn" destination="x7X-eg-0tV" id="bEa-ek-FcQ"/>
-                        <outlet property="chkBtn" destination="oTe-Ik-8xI" id="kbQ-hs-eLQ"/>
                         <outlet property="progressLbl" destination="th9-e1-kU2" id="Fq4-Qy-a2x"/>
-                        <outlet property="questionLbl" destination="x7X-eg-0tV" id="phD-KY-iMV"/>
+                        <outlet property="questionLabel" destination="x7X-eg-0tV" id="5Vl-mo-biq"/>
                         <outlet property="questionNumberLbl" destination="G5P-rV-XvJ" id="oIt-RV-fPh"/>
                         <outlet property="timerLbl" destination="fMU-de-pXf" id="DKS-KC-gSY"/>
                     </connections>
