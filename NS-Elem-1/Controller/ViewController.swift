@@ -74,6 +74,7 @@ class ViewController: UIViewController {
         
         if answerCorrect == answerUser {
             correctAnswers += 1
+            numberAttempts += 1
             updateProgress()
             randomPositiveFeedback()
             askQuestion()
