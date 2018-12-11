@@ -23,8 +23,9 @@ class ViewController: UIViewController {
     var timer = Timer()
     var counter = 0.0
     
-    var randomNumA = Int.random(in: 101 ..< 1000)
-    var randomNumB = Int.random(in: 101 ..< 1000)
+    var randomNumA : Int = 0
+    var randomNumB : Int = 0
+    
     var firstNum : Int = 0
     var secondNum : Int = 0
     var questionTxt : String = ""
@@ -36,13 +37,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        /*
-        questionNumber = 0
-        questionNumberLbl.text = "Question #\(questionNumber + 1)"
-        let firstQuestion = allQuestions.list[0].question
-        questionLbl.text = firstQuestion
- */
-        
+
         askQuestion()
         
         timerLbl.text = "\(counter)"
@@ -56,6 +51,9 @@ class ViewController: UIViewController {
     }
     
     func askQuestion(){
+        //3 digit questions starting at 100
+        randomNumA = Int.random(in: 10 ..< 1001)
+        randomNumB = Int.random(in: 10 ..< 1001)
         
         if randomNumA > randomNumB {
             firstNum = randomNumA
@@ -67,6 +65,7 @@ class ViewController: UIViewController {
         }
     
     questionLabel.text = "\(firstNum) - \(secondNum)"
+    readMe(myText: "What is \(firstNum) minus \(secondNum)?")
     }
     
     func checkAnswer(){
@@ -74,11 +73,17 @@ class ViewController: UIViewController {
         answerCorrect = firstNum - secondNum
         
         if answerCorrect == answerUser {
-            print("correct")
+            correctAnswers += 1
+            updateProgress()
             randomPositiveFeedback()
+            askQuestion()
+            answerTxt.text = ""
         }
         else{
-            print("wrong")
+            randomTryAgain()
+            answerTxt.text = ""
+            numberAttempts += 1
+            updateProgress()
         }
     }
     
@@ -87,7 +92,6 @@ class ViewController: UIViewController {
         timerLbl.text = String(format:"%.1f",counter)
     }
     
-
     func readMe( myText: String) {
         let utterance = AVSpeechUtterance(string: myText )
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
@@ -100,12 +104,15 @@ class ViewController: UIViewController {
     func randomPositiveFeedback(){
         randomPick = Int(arc4random_uniform(9))
         readMe(myText: congratulateArray[randomPick])
-        
     }
     
-
     func updateProgress(){
         progressLbl.text = "\(correctAnswers) / \(numberAttempts)"
+    }
+    
+    func randomTryAgain(){
+        randomPick = Int(arc4random_uniform(2))
+        readMe(myText: retryArray[randomPick])
     }
 }
 
