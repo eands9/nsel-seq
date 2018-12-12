@@ -68,27 +68,20 @@ class ViewController: UIViewController {
             secondNum = randomNumA
             thirdNum = randomNumC
         }
-        
         questionLabel.text = "\(thirdNum) + \(firstNum) - \(secondNum)"
-        readMe(myText: "What is \(thirdNum) plus \(firstNum) minus \(secondNum)?")
     }
     
     func checkAnswer(){
         answerUser = (answerTxt.text! as NSString).integerValue
-        answerCorrect = randomNumC + randomNumA - randomNumB
+        answerCorrect = thirdNum + firstNum - secondNum
         
         if answerCorrect == answerUser {
             correctAnswers += 1
             numberAttempts += 1
             updateProgress()
             randomPositiveFeedback()
-            let when = DispatchTime.now() + 2
-            DispatchQueue.main.asyncAfter(deadline: when){
-                //next problem
-                self.askQuestion()
-                self.answerTxt.text = ""
-                
-            }
+            askQuestion()
+            answerTxt.text = ""
         }
         else{
             randomTryAgain()
