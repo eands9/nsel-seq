@@ -53,18 +53,29 @@ class ViewController: UIViewController {
     }
     
     func askQuestion(){
-        //3 digit questions starting at 100
-        randomNumA = Int.random(in: 100 ..< 1001)
-        randomNumB = Int.random(in: 100 ..< 1001)
-        randomNumC = Int.random(in: 100 ..< 1001)
+        //2 digit questions starting at 100
+        randomNumA = Int.random(in: 10 ..< 100)
+        randomNumB = Int.random(in: 10 ..< 100)
+        randomNumC = Int.random(in: 10 ..< 100)
         
-        questionLabel.text = "\(randomNumA) + \(randomNumB) + \(randomNumC)"
-        readMe(myText: "What is \(randomNumA) plus \(randomNumB) plus \(randomNumC)?")
+        if randomNumA > randomNumB {
+            firstNum = randomNumA
+            secondNum = randomNumB
+            thirdNum = randomNumC
+        }
+        else{
+            firstNum = randomNumB
+            secondNum = randomNumA
+            thirdNum = randomNumC
+        }
+        
+        questionLabel.text = "\(thirdNum) + \(firstNum) - \(secondNum)"
+        readMe(myText: "What is \(thirdNum) plus \(firstNum) minus \(secondNum)?")
     }
     
     func checkAnswer(){
         answerUser = (answerTxt.text! as NSString).integerValue
-        answerCorrect = randomNumA + randomNumB + randomNumC
+        answerCorrect = randomNumC + randomNumA - randomNumB
         
         if answerCorrect == answerUser {
             correctAnswers += 1
