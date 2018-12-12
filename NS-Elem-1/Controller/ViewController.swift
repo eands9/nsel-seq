@@ -25,14 +25,12 @@ class ViewController: UIViewController {
     
     var randomNumA : Int = 0
     var randomNumB : Int = 0
-    var randomNumC : Int = 0
     
-    var firstNum : Int = 0
-    var secondNum : Int = 0
-    var thirdNum : Int = 0
+    var firstNum : Double = 0
+    var secondNum : Double = 0
     var questionTxt : String = ""
-    var answerCorrect : Int = 0
-    var answerUser : Int = 0
+    var answerCorrect : Double = 0
+    var answerUser : Double = 0
     
     let congratulateArray = ["Great Job", "Excellent", "Way to go", "Alright", "Right on", "Correct", "Well done", "Awesome","Give me a high five"]
     let retryArray = ["Try again","Oooops"]
@@ -54,28 +52,20 @@ class ViewController: UIViewController {
     
     func askQuestion(){
         //2 digit questions starting at 100
-        randomNumA = Int.random(in: 10 ..< 100)
-        randomNumB = Int.random(in: 10 ..< 100)
-        randomNumC = Int.random(in: 10 ..< 100)
+        randomNumA = Int.random(in: 100 ..< 1000)
+        randomNumB = randomNumA + 5
         
-        if randomNumA > randomNumB {
-            firstNum = randomNumA
-            secondNum = randomNumB
-            thirdNum = randomNumC
-        }
-        else{
-            firstNum = randomNumB
-            secondNum = randomNumA
-            thirdNum = randomNumC
-        }
-        questionLabel.text = "\(thirdNum) + \(firstNum) - \(secondNum)"
+        firstNum = Double(randomNumA)
+        secondNum = Double(randomNumB)
+        
+        questionLabel.text = "\(randomNumA) X 11 + \(randomNumB)"
     }
     
     func checkAnswer(){
-        answerUser = (answerTxt.text! as NSString).integerValue
-        answerCorrect = thirdNum + firstNum - secondNum
+        answerUser = (answerTxt.text! as NSString).doubleValue
+        answerCorrect = firstNum * 11 + secondNum
         
-        if answerCorrect == answerUser {
+        if answerUser >= answerCorrect * 0.95 && answerUser <= answerCorrect * 1.05 {
             correctAnswers += 1
             numberAttempts += 1
             updateProgress()
