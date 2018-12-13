@@ -65,9 +65,9 @@ class ViewController: UIViewController {
         pickHighNum()
         pickLowNum()
         //2 digit questions starting at 100
-        randomNumA = Int.random(in: 1 ..< 10)
+        randomNumA = Int.random(in: 10 ..< 51)
         randomNumD = Int.random(in: 1 ..< 10)
-        randomNumB = randomNumA * 100 + randomHigh
+        randomNumB = randomNumA * 10 + randomHigh
         randomNumC = randomNumD * 10 + randomLow
 
         
