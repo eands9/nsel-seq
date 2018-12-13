@@ -26,11 +26,9 @@ class ViewController: UIViewController {
     var randomNumA : Int = 0
     var randomNumB : Int = 0
     var randomNumC : Int = 0
-    var randomNumD : Int = 0
     var firstNum : Double = 0
     var secondNum : Double = 0
     var thirdNum : Double = 0
-    var fourthNum : Double = 0
     var questionTxt : String = ""
     var answerCorrect : Double = 0
     var answerUser : Double = 0
@@ -65,21 +63,20 @@ class ViewController: UIViewController {
         pickHighNum()
         pickLowNum()
         //2 digit questions starting at 100
-        randomNumA = Int.random(in: 10 ..< 51)
-        randomNumD = Int.random(in: 1 ..< 10)
-        randomNumB = randomNumA * 10 + randomHigh
-        randomNumC = randomNumD * 10 + randomLow
-
+        randomNumA = Int.random(in: 10000 ..< 100000)
+        randomNumB = Int.random(in: 1000 ..< 10000)
+        randomNumC = Int.random(in: 100 ..< 1000)
         
-        firstNum = Double(randomNumB)
-        secondNum = Double(randomNumC)
+        firstNum = Double(randomNumA)
+        secondNum = Double(randomNumB)
+        thirdNum = Double(randomNumC)
         
-        questionLabel.text = "\(randomNumB) X \(randomNumC)"
+        questionLabel.text = "\(randomNumA) - \(randomNumB) - \(randomNumC)"
     }
     
     func checkAnswer(){
         answerUser = (answerTxt.text! as NSString).doubleValue
-        answerCorrect = firstNum * secondNum
+        answerCorrect = firstNum - secondNum - thirdNum
         
         if answerUser >= answerCorrect * 0.95 && answerUser <= answerCorrect * 1.05 {
             correctAnswers += 1
