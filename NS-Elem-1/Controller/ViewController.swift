@@ -23,7 +23,6 @@ class ViewController: UIViewController {
     var timer = Timer()
     var counter = 0.0
 
-    //var questionTxt : String = ""
     var answerCorrect : Int = 0
     var answerUser : Int = 0
     
@@ -40,6 +39,9 @@ class ViewController: UIViewController {
         timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(ViewController.updateTimer), userInfo: nil, repeats: true)
         
         self.answerTxt.becomeFirstResponder()
+/* SOLUTION:    get number of seq = last number - first number; divide by increment; plus 1
+                answerCorrect = number of seq X (last number + first number) / 2
+ */
     }
     struct DoubleGenerator: Sequence, IteratorProtocol {
         
