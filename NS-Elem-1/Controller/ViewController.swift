@@ -22,28 +22,15 @@ class ViewController: UIViewController {
     var numberAttempts: Int = 0
     var timer = Timer()
     var counter = 0.0
-    
-    var randomNumA : Int = 0
-    var randomNumB : Int = 0
-    var randomNumC : Int = 0
-    var firstNum : Double = 0
-    var secondNum : Double = 0
-    var thirdNum : Double = 0
-    var questionTxt : String = ""
-    var answerCorrect : Double = 0
-    var answerUser : Double = 0
-    
-    var randomHigh: Int = 0
-    var randomLow: Int = 0
-    var randomHighIndex: Int = 0
-    var randomLowIndex: Int = 0
+
+    //var questionTxt : String = ""
+    var answerCorrect : Int = 0
+    var answerUser : Int = 0
     
     let congratulateArray = ["Great Job", "Excellent", "Way to go", "Alright", "Right on", "Correct", "Well done", "Awesome","Give me a high five"]
     let retryArray = ["Try again","Oooops"]
     
-    let bigNumberArray = [8,9]
-    let smallNumberArray = [1,2]
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -54,31 +41,51 @@ class ViewController: UIViewController {
         
         self.answerTxt.becomeFirstResponder()
     }
-
+    struct DoubleGenerator: Sequence, IteratorProtocol {
+        
+        var current = Int.random(in: 1...20)
+        var randomAdd = Int.random(in: 1...10)
+        
+        mutating func next() -> Int? {
+            defer {
+                current += randomAdd
+            }
+            return current
+        }
+    }
     @IBAction func checkAnswerByUser(_ sender: Any) {
         checkAnswer()
     }
-    
     func askQuestion(){
-        pickHighNum()
-        pickLowNum()
-        //2 digit questions starting at 100
-        randomNumA = Int.random(in: 10000 ..< 100000)
-        randomNumB = Int.random(in: 1000 ..< 10000)
-        randomNumC = Int.random(in: 100 ..< 1000)
+        let randomSeqLength = Int.random(in: 4...10)
+        var seqList = [Int]()
+        var i = 0
+        var question = ""
         
-        firstNum = Double(randomNumA)
-        secondNum = Double(randomNumB)
-        thirdNum = Double(randomNumC)
+        let numbers = DoubleGenerator()
+        for number in numbers {
+            i += 1
+            if i == randomSeqLength { break }
+            seqList.append(number)
+        }
         
-        questionLabel.text = "\(randomNumA) - \(randomNumB) - \(randomNumC)"
+        for num in seqList{
+            if num == seqList.last{
+                question += String(num)
+            }
+            else {
+                question += String(num) + " + "
+            }
+        }
+        
+        questionLabel.text = question
+        answerCorrect = seqList.reduce(0, +)
     }
     
     func checkAnswer(){
-        answerUser = (answerTxt.text! as NSString).doubleValue
-        answerCorrect = firstNum - secondNum - thirdNum
+        answerUser = (answerTxt.text! as NSString).integerValue
         
-        if answerUser >= answerCorrect * 0.95 && answerUser <= answerCorrect * 1.05 {
+        if answerUser == answerCorrect{
             correctAnswers += 1
             numberAttempts += 1
             updateProgress()
@@ -120,16 +127,6 @@ class ViewController: UIViewController {
     func randomTryAgain(){
         randomPick = Int(arc4random_uniform(2))
         readMe(myText: retryArray[randomPick])
-    }
-    
-    func pickHighNum(){
-        randomHighIndex = Int(arc4random_uniform(2))
-        randomHigh = bigNumberArray[randomHighIndex]
-    }
-    
-    func pickLowNum(){
-        randomLowIndex = Int(arc4random_uniform(2))
-        randomLow = smallNumberArray[randomHighIndex]
     }
 }
 
