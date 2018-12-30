@@ -71,12 +71,19 @@ class ViewController: UIViewController {
             seqList.append(number)
         }
         
+        var j = 0
         for num in seqList{
-            if num == seqList.last{
+            if num == seqList.last && j <= 2{
                 question += String(num)
+                j += 1
             }
-            else {
+            else if j == 3 {
+                question += "... + \(seqList.last!)"
+                break;
+            }
+            else if j <= 2{
                 question += String(num) + " + "
+                j += 1
             }
         }
         
